@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CadastroClientes.Data;
 using CadastroClientes.Models;
 using CadastroClientes.Repository;
+using CadastroClientes.Contracts;
 
 namespace CadastroClientes.Controllers
 {
@@ -15,9 +16,9 @@ namespace CadastroClientes.Controllers
     [ApiController]
     public class ClientesController : ControllerBase
     {
-        private readonly ClienteRepository _repository;
+        private readonly IClienteRepository _repository;
 
-        public ClientesController(ClienteRepository repository)
+        public ClientesController(IClienteRepository repository)
         {
             _repository = repository;
         }
@@ -27,7 +28,7 @@ namespace CadastroClientes.Controllers
         public async Task<ActionResult<IEnumerable<Cliente>>> GetClientes()
         {
             
-            return await _repository.GetClientes();
+            return Ok(await _repository.GetClientes());
         }
 
         // GET: api/Clientes/5
